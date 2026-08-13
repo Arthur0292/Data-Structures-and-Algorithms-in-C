@@ -1,4 +1,4 @@
-# Data-Structures-in-C
+# Data-Structures-and-Algorithms-in-C
 
 A repository dedicated to studying data structures, algorithms, and memory management using the **C** language.
 
