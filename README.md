@@ -25,7 +25,7 @@ To test any of the exercises locally:
 1. Clone the repository:
 
    ```
-   git clone https://github.com/Arthur0292/Data-Structures-in-C.git
+   git clone https://github.com/Arthur0292/Data-Structures-and-Algorithms-in-C.git
    ```
 
 2. Navigate to the desired folder and compile the file with GCC:
