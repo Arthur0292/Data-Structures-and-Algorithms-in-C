@@ -8,7 +8,7 @@ A repository dedicated to studying data structures, algorithms, and memory manag
 
 The project is divided into thematic folders to facilitate study and the review of specific concepts.
 
-- **01 - C Foundations:** Refresher on core C concepts, split into `Basics`, `Pointers`, `Functions`, `Structs`, and `Exercises`.
+- **01 - C Foundations:** Refresher on core C concepts
 
 ## Technologies and Tools
 
