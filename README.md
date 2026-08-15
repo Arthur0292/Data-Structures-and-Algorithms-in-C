@@ -37,6 +37,14 @@ To test any of the exercises locally:
 
 ---
 
+## Exercise Sources
+
+The exercises in this repository are inspired by fixation lists from various Data Structures 
+and Algorithms courses (e.g., MC202 - Unicamp), used strictly for personal study purposes. 
+Original problem statements are not redistributed here — only my own solutions and notes.
+
+---
+
 ## License
 
 This project is licensed under the MIT License.
