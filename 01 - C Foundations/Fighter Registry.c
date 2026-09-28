@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 typedef struct{
     char descricao[24];
 } TipoPoder;
@@ -15,22 +13,4 @@ void preenchaVetorLutadores(TipoLutador* lutadores, int n){
     for(int i = 0; i < n; i++){
         scanf("%d %19s %f %23s", &lutadores[i].id, lutadores[i].nome, &lutadores[i].forca, lutadores[i].poder.descricao);
     }
-}
-
-
-int main(){
-
-    int n;
-
-    scanf("%d", &n);
-
-    TipoLutador lutadores[n];
-
-    preenchaVetorLutadores(lutadores, n);
-
-
-
-
-
-    return 0;
 }
