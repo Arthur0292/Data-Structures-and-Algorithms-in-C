@@ -1,53 +1,29 @@
-#include <stdio.h>
-#define MAX 100
-
-
-int ehsimetrica(int n, int matriz[][MAX]){
+void ehSimetrica(int matriz[linhas][colunas], int linhas, int colunas){
     
-    int matrizT[MAX][MAX];
+    if(linhas != colunas){
+        printf("Não é simetrica\n");
+        return;
+    }
+    
+    int matrizTransposta[linhas][colunas];
 
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<n; j++){
-            matrizT[j][i] = matriz[i][j];
+    for(int i = 0; i<linhas; i++){
+        for(int j = 0; j<colunas; j++){
+            matrizTransposta[j][i] = matriz[i][j];
         }
     }
 
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<n; j++){
-            if(matriz[i][j] != matrizT[i][j]){
-                return 0;
+    for(int i = 0; i<linhas; i++){
+        for(int j = 0; j<colunas; j++){
+            if(matriz[i][j] != matrizTransposta[i][j]){
+                printf("Não é simetrica\n");
+                return;
             }
         }
     }
 
-    return 1;
-}
-
-int main(){
-
-    int n;
-    scanf("%d", &n);
-
-    int matriz[MAX][MAX];
-
-    for(int i = 0; i<n; i++){
-        for(int j = 0; j<n; j++){
-            scanf("%d", &matriz[i][j]);
-        }
-    }
-
-    int temp = ehsimetrica(n, matriz);
-
-    if(temp == 0){
-        printf("Não é simetrica\n");
-    }else{
-        printf("É simetrica\n");
-    }
+    printf("É simetrica\n");
+    return;
 
 
-
-
-
-
-    return 0;
 }
