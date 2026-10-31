@@ -10,7 +10,9 @@ The project is divided into thematic folders to facilitate study and the review 
 
 - **01 - C Foundations:** Refresher on core C concepts
 - **02 - Vectors:** Dynamic arrays in C: static vs. dynamic size, malloc(), calloc(), resizing with realloc(), Variable Length Arrays (VLAs), and Flexible Array Members
-- **03 - Linked list:** in C: nodes, pointers, dynamic allocation, and insertion/removal/traversal
+- **03 - Linked list:** nodes, pointers, dynamic allocation, and insertion/removal/traversal
+- **04 - Stacks: Stack** implementation using arrays and linked lists, push and pop operations, LIFO (Last In, First Out) principle, and dynamic memory management.
+- **05 - Queues:** Queue implementation using arrays and linked lists, enqueue and dequeue operations, FIFO (First In, First Out) principle, and dynamic memory management.
 
 ## Technologies and Tools
 
