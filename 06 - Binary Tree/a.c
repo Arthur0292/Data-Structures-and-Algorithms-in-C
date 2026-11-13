@@ -117,11 +117,19 @@ char** aloca_codigo(int colunas){
     return codigo;
 }
 
-void codigo_letras(char **codigo, No *raiz, int altura, char *caminho, int colunas){
+void codigo_letra(char **codigo, No *raiz, char *caminho, int colunas){
+    char esquerda[colunas], direita[colunas];
     if(raiz->esq == NULL && raiz->dir == NULL){
         strcpy(codigo[raiz->caracter], caminho);
     }else{
+        strcpy(esquerda, caminho);
+        strcpy(direita, caminho);
         
+        strcat(esquerda, "0");
+        strcat(direita, "1");
+        
+        codigo_letra(codigo, raiz->esq, esquerda, colunas);
+        codigo_letra(codigo, raiz->dir, direita, colunas);
     }
 }
 
