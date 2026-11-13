@@ -92,10 +92,54 @@ No* arvore(Lista *lista){
         novo->dir = segundo;
         novo->prox = NULL;
 
-        inserir_ordenado(lista, novo);
+        inserir_ordenado(lista, novo);      //Coloco a subarvore dentro da lista
     }
 
     return lista->ini;
+}
+
+int altura(No *raiz){       //Funcao para calcular a altura da arvore binaria
+    int esq, dir;
+    if(raiz == NULL){
+        return -1;
+    }else{
+        esq = altura(raiz->esq);
+        dir = altura(raiz->dir);
+        if(esq > dir){
+            return esq + 1;
+        }else{
+            return dir + 1;
+        }
+    }
+}
+
+char** aloca_codigo(int colunas){       //Alocar uma matriz de strings
+    char **codigo;
+
+    codigo = malloc(sizeof(char*) * 256);
+
+    for(int i = 0; i<256; i++){
+        codigo[i] = calloc(colunas, sizeof(char));  
+    }
+
+    return codigo;
+
+}
+
+void codigo_letra(char **codigo, No *raiz, char *caminho, int colunas){
+    char esquerda[colunas], char direita[colunas];
+    if(raiz->esq == NULL && raiz->dir == NULL){ //verificar se chegou em um no folha
+        strcpy(codigo[raiz->caracter], caminho);
+    }else{
+        strcpy(esquerda, caminho);  //Continuo andando e adicionado a string de acordo com o caminho
+        strcpy(direita, caminho);
+
+        strcat(esquerda, "0");
+        strcat(direita, "1");
+
+        codigo_letra(codigo, raiz->esq, esquerda, colunas);
+        codigo_letra(codigo, raiz->dir, direita, colunas);
+    }
 }
 
 void imprimir(Lista *lista){
