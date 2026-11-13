@@ -14,7 +14,7 @@ The project is divided into thematic folders to facilitate study and the review 
 - **04 - Stacks: Stack** implementation using arrays and linked lists, push and pop operations, LIFO (Last In, First Out) principle, and dynamic memory management.
 - **05 - Queues:** Queue implementation using arrays and linked lists, enqueue and dequeue operations, FIFO (First In, First Out) principle, and dynamic memory management.
 - **06 - Binary Trees:** Binary tree implementation, nodes and pointers, dynamic memory allocation, recursive traversal (preorder, inorder, and postorder), searching, insertion, height calculation, and memory deallocation.
-- - **07 - Binary Search Trees (BST):** Binary search tree implementation, insertion and removal of nodes, searching, minimum and maximum value lookup, recursive traversal, and dynamic memory management.
+- **07 - Binary Search Trees (BST):** Binary search tree implementation, insertion and removal of nodes, searching, minimum and maximum value lookup, recursive traversal, and dynamic memory management.
 
 ## Technologies and Tools
 
