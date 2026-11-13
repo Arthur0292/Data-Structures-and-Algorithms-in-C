@@ -109,6 +109,7 @@ void imprimir(Lista *lista){
 int main(){
 
     Lista lista;    //Crio a minha lista encadeada
+    No *ab;
     criar_lista(&lista);
     
     char texto[100];    //Peco para o usuario digitar o texto
@@ -119,7 +120,7 @@ int main(){
     preenche_frequencia(texto, tabela_frequencia);  
     preenche_lista(tabela_frequencia, &lista);
 
-    imprimir(&lista);
+    ab = arvore(&lista);
 
     return 0;
 }
