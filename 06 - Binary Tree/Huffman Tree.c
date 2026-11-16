@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct No{
+typedef struct No{  //Estruturas para o no e arvore
     char caracter;
     int frequencia;
     struct No *prox;
@@ -19,35 +19,31 @@ void criar_lista(Lista *lista){
     lista->tamanho = 0;
 }
 
+int vem_antes(No *a, No *b){    //Verifico a frequencia
+    if(a->frequencia != b->frequencia)
+        return a->frequencia < b->frequencia;
+    return(unsigned char)a->caracter < (unsigned char)b->caracter;
+}
+
 void inserir_ordenado(Lista *lista, No *no){
-    No *aux;
-    if(lista->ini == NULL){
-        lista->ini = no;
-        lista->tamanho++;
-    }else if(no->frequencia < lista->ini->frequencia){  
-        lista->ini = no;
-        lista->tamanho++;
-    }else{  
-        aux = lista->ini; 
-        while(aux->prox != NULL && aux->prox->frequencia <= no->frequencia){   
-            if(aux->prox->frequencia == no->frequencia){
-                if(aux->prox->caracter > no->caracter){
-                    break;
-                }
-            }
+    if(lista->ini == NULL || vem_antes(no, lista->ini)){    //Se for nulo ou menor
+        no->prox = lista->ini;   
+        lista->ini = no;         
+    }else{
+        No *aux = lista->ini;
+        while(aux->prox != NULL && !vem_antes(no, aux->prox)){  //procura ate achar posicao
             aux = aux->prox;
         }
-
-        no->prox = aux->prox; 
+        no->prox = aux->prox;
         aux->prox = no;
-        lista->tamanho++;
     }
+    lista->tamanho++;
 }
 
 void preenche_lista(Lista *lista, int vet[]){
     No *novo;
     for(int i = 0; i<256; i++){
-        if(vet[i] > 0){
+        if(vet[i] > 0){ //Aloca e guarda na lista
             novo = malloc(sizeof(No));
             novo->caracter = i;
             novo->frequencia = vet[i];
@@ -61,9 +57,9 @@ void preenche_lista(Lista *lista, int vet[]){
 
 No *remover_no(Lista *lista){
     No *temp = NULL;
-    if(lista->ini != NULL){
+    if(lista->ini != NULL){ 
         temp = lista->ini;
-        lista->ini = temp->prox;
+        lista->ini = temp ->prox;
         temp->prox = NULL;
         lista->tamanho--;
     }
@@ -77,8 +73,15 @@ No *arvore(Lista *lista){
         primeiro = remover_no(lista);
         segundo = remover_no(lista);
         novo = malloc(sizeof(No));
+        
+        
+        if((unsigned char)primeiro->caracter < (unsigned char) segundo->caracter){
+            novo->caracter = primeiro->caracter;
+        }else{
+            novo->caracter = segundo->caracter;
+        }
         novo->frequencia = primeiro->frequencia + segundo->frequencia;
-        novo->esq = primeiro;
+        novo->esq = primeiro;   
         novo->dir = segundo;
         novo->prox = NULL;
         
@@ -90,7 +93,7 @@ No *arvore(Lista *lista){
     return lista->ini;
 }
 
-int altura(No *raiz){
+int altura(No *raiz){       //funcao para altura da arvore
     int esq, dir;
     if(raiz == NULL){
         return -1;
@@ -106,7 +109,7 @@ int altura(No *raiz){
 }
 
 char** aloca_codigo(int colunas){
-    char **codigo;
+    char **codigo;  //Matriz de strigs para os codigos
     codigo = malloc(sizeof(char*) * 256);
     
     for(int i = 0; i<256; i++){
@@ -118,10 +121,10 @@ char** aloca_codigo(int colunas){
 
 void codigo_letra(char **codigo, No *raiz, char *caminho, int colunas){
     char esquerda[colunas], direita[colunas];
-    if(raiz->esq == NULL && raiz->dir == NULL){
+    if(raiz->esq == NULL && raiz->dir == NULL){ //se chegar em um no folha
         strcpy(codigo[(unsigned char)raiz->caracter], caminho);
     }else{
-        strcpy(esquerda, caminho);
+        strcpy(esquerda, caminho); //senao atribuo o caminho com 0 ou 1
         strcpy(direita, caminho);
         
         strcat(esquerda, "0");
@@ -141,11 +144,11 @@ void soma_frequencia(char texto[], int vet[]){
 
 void imprimir_letras(char **tabela_codigo){
     int cont = 0;
-    int caracteres[256];
+    int caracteres[256];    //vetores auxiliares para ordenacao
     char codigos[256][256];
 
     for(int i = 0; i < 256; i++){
-        if(strlen(tabela_codigo[i]) > 0){
+        if(strlen(tabela_codigo[i]) > 0){  
             caracteres[cont] = i;
             strcpy(codigos[cont], tabela_codigo[i]);
             cont++;
@@ -153,8 +156,8 @@ void imprimir_letras(char **tabela_codigo){
     }
 
     for(int i = 0; i<cont; i++){
-        for(int j = 0; j< cont - i -  1; j++){
-            if(strcmp(codigos[j], codigos[j + 1]) > 0){
+        for(int j = 0; j< cont - i -  1; j++){  //compara o tamanho e as strings
+            if(strlen(codigos[j]) > strlen(codigos[j + 1]) || (strlen(codigos[j]) == strlen(codigos[j + 1]) && strcmp(codigos[j], codigos[j + 1]) > 0 )){
                 char aux[256];
                 int aux1;
                 strcpy(aux, codigos[j]);
@@ -181,7 +184,7 @@ int main(){
     No *ab;
     criar_lista(&lista);
     char texto[1025];
-    scanf(" %[^\n]", texto);
+    scanf("%[^\n]", texto);
     
     int frequencia[256] = {0};
     
@@ -191,9 +194,13 @@ int main(){
     ab = arvore(&lista);
     
     
-    int colunas = altura(ab) + 1;
+    int colunas = altura(ab) + 2;
     char **tabela_codigo = aloca_codigo(colunas);
-    codigo_letra(tabela_codigo, ab, "", colunas);
+    if(ab->esq == NULL && ab->dir == NULL){ //caso se toodas forem repetidas
+        strcpy(tabela_codigo[(unsigned char)ab->caracter], "0");
+    }else{
+        codigo_letra(tabela_codigo, ab, "", colunas);
+    }
     
     imprimir_letras(tabela_codigo);
     
