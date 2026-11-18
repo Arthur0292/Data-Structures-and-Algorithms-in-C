@@ -64,9 +64,9 @@ int main(){
     p_no valor_busca = busca(ab, aux);
 
     if(valor_busca == NULL){
-        printf("Valor não encontrado\n");
+        printf("NÃO ENCONTRADO\n");
     }else{
-        printf("O valor esta dentro da arvore\n");
+        printf("ENCONTRADO\n");
     }
 
 
