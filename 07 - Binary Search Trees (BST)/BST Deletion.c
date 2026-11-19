@@ -32,7 +32,8 @@ p_no remover_no(p_no raiz, int x){
 
         }
 
-        return raiz;
     }
+
+    return raiz;
 
 }
