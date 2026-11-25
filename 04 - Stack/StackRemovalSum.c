@@ -1,79 +1,95 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node
-{
+typedef struct Node{
     int data;
     struct Node *next;
 } Node;
 
-typedef struct Pilha
-{
+typedef struct pilha{
     int tamanho;
     Node *topo;
-} Pilha;
+}pilha;
 
-typedef Pilha *p_pilha;
-
-void inicializar_pilha(Pilha **pilha, int x)
-{
-    *pilha = malloc(sizeof(Pilha));
-    (*pilha)->topo = malloc(sizeof(Node) * x);
-    (*pilha)->tamanho = 0;
+Node *criar_no(int x){
+    Node * novo;
+    novo = malloc(sizeof(Node));
+    novo->data = x;
+    novo->next = NULL;
+    return novo;
 }
 
-void push(p_pilha pilha, int dado)
-{
-    pilha->topo[pilha->tamanho].data = dado;
+pilha *inicializar_pilha(){
+    pilha *p;
+    p = malloc(sizeof(pilha));
+    p->topo = NULL;
+    p->tamanho = 0;
+    return p;
+}
+
+pilha *push(pilha *pilha, int dado){
+    Node *novo = criar_no(dado);
+    novo->next = pilha->topo;
+    pilha->topo = novo;
     pilha->tamanho++;
+   
+
+    return pilha;
 }
 
-void pop(p_pilha pilha)
-{
-    pilha->tamanho--;
+pilha *pop(pilha *pilha){
+    if(pilha->topo == NULL){
+        return pilha;
+    }else{
+        Node *aux = pilha->topo->next;
+        free(pilha->topo);
+        pilha->topo = aux;
+
+        pilha->tamanho--;
+
+        return pilha;
+    }
 }
 
-void destruir_pilha(Pilha **pilha){
-    free((*pilha)->topo);
-    free(*pilha); 
+int soma(pilha *pilha){
+    int soma = 0;
+    if(pilha->topo == NULL){
+        return 0;
+    }else{
+        Node * aux = pilha->topo;
+        while(aux != NULL){
+            soma += aux->data;
+            aux = aux->next;
+        }
+    }
+
+    return soma;
 }
 
-int main()
-{
 
-    int n;
+
+int main(){
+
+    int n, x;
     scanf("%d", &n);
 
-    p_pilha pilha;
-    inicializar_pilha(&pilha, n);
+    pilha *p = inicializar_pilha();
 
-    for (int i = 0; i < n; i++)
-    {
-        int x;
+    for(int i = 0; i<n; i++){
         scanf("%d", &x);
-        if (x != 19)
-        {
-            push(pilha, x);
-        }
-        else
-        {
-            if (pilha->tamanho > 0)
-            {
-                pop(pilha);
-            }
+        if(x != 19){
+            p = push(p, x);
+        }else{
+            p = pop(p);
         }
     }
 
-    int soma = 0;
-    if (pilha->tamanho > 0)
-    {
-        for (int i = 0; i<pilha->tamanho; i++)
-        {
-            soma += pilha->topo[i].data;
-        }
-    }
+    int a = soma(p);
 
-    printf("%d", soma);
+    printf("%d\n", a);
+ 
+    
 
-    destruir_pilha(&pilha);
+
+    return 0;
 }
